@@ -32,6 +32,7 @@
         }
         else{
             objectSel.material = oringinMaterial;
+            //Reload model
             model = modelObj.toJSON();
             db.collection('models').doc(modelName).update(model);
             DesactivateToggleMove();
