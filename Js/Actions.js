@@ -31,8 +31,8 @@
                     return index;
                 }
             });
+            console.log(intColor);
             model.materials[materialIndex].color = intColor;
-            // db.collection('models').doc('test1').update(model);
             oringinMaterial.color = {r:rgbs[0], g:rgbs[1], b:rgbs[2]};
         }
 

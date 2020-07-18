@@ -32,9 +32,9 @@
         }
         else{
             objectSel.material = oringinMaterial;
-            //Reload model
-            model = modelObj.toJSON();
-            db.collection('models').doc(modelName).update(model);
+            var localModel = modelObj.toJSON();
+            localModel.materials = model.materials;
+            db.collection('models').doc(modelName).update(localModel);
             DesactivateToggleMove();
         }
     }
