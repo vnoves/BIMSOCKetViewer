@@ -19,9 +19,9 @@ function addControlGui() {
     .onChange( function() {  ChangeColor(objectSel, colorPicker.color0); } );
 
     //Add button to create cubes
-    // var obj = { Add_Cube:function(){ ActivateCube(); }};
+    var obj = { Add_Cube:function(){ ActivateCube(); }};
 
-    // gui.add(obj,'Add_Cube');
+    gui.add(obj,'Add_Cube');
 
 }
 

@@ -59,6 +59,8 @@
         var objectModel = scene.getObjectByName( "BIM RAC_basic_sample_project" );
         scene.add(parent);
         objectModel.add(parent);
+
+        document.removeEventListener( 'click', onContextMenu, false );
     }
     
       
