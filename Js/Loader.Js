@@ -1,5 +1,6 @@
 //Load customized Json file
 var loadedModels = [];
+var lastMod = null;
 function loadModel(modelName) {
     var loader = new THREE.ObjectLoader();
     var loadedModel = {name : modelName};
@@ -9,9 +10,8 @@ function loadModel(modelName) {
             model = doc.data();
             loader.parse(model,
                 function (mod) {
-                    // console.log(mod);
+                    lastMod = mod;
                     modelObj = mod;
-                    console.log(modelObj);
                     mod.castShadow = true;
         
                     //Adjust the camera location to the max bouding from object
@@ -44,7 +44,11 @@ function loadModel(modelName) {
         model = modelChanges.data();
         loader.parse(model,
             function (mod) {
-                mod.castShadow = true;      
+                scene.remove(lastMod);
+                mod.castShadow = true;
+                scene.add(mod);  
+                lastMod = mod;
+                loadedModel.scene = mod;
             }
         ); 
     });
