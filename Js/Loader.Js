@@ -63,3 +63,9 @@ function unloadModel(modelName){
         }
     })
 }
+
+async function getModelsNames() {
+    var dbName = 'models';
+    const snapshot = await firebase.firestore().collection(dbName).get();
+    return snapshot.docs.map(doc => doc.ref.path.replace(dbName + "/" , ""));
+}
