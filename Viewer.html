@@ -69,6 +69,15 @@
 <script>
 
     // import { TransformControls } from "/libs/TransformControls.js";
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var modelName = urlParams.get('model');
+    if (modelName ==  undefined){
+        var modelName = "test1";
+    }
+    
+
     var model = null;
     var modelObj = null;
     $.ajax({
@@ -110,7 +119,7 @@
     var controlTransform = false;
     var intersectionPoint;
 
-    var modelName = "test1"
+    
     var Object3D = {
         Name: ""};
 
@@ -194,7 +203,7 @@
 				scene.add( sky );
      
         // add extras
-        loadModel();
+        loadModel(modelName);
         animate();
         addControlGui();
         // add the output of the renderer to the html element

@@ -1,8 +1,8 @@
 //Load customized Json file
-
-function loadModel() {
+var loadedModels = [];
+function loadModel(modelName) {
     var loader = new THREE.ObjectLoader();
-
+    var loadedModel = {name : modelName};
     // Get model from firebase for the first time
     db.collection('models').doc(modelName).get().then(function(doc) {
         if (doc.exists) {
@@ -28,7 +28,8 @@ function loadModel() {
                     controls.maxDistance = maxObjectDistance*4;
                     camera.updateProjectionMatrix();
                     
-                    scene.add(mod);         
+                    scene.add(mod);  
+                    loadedModel.scene = mod;       
                 }
             );
         } else {
@@ -39,7 +40,7 @@ function loadModel() {
     });
 
     // Subscribe on update changes for model on firebase
-    db.collection('models').doc(modelName).onSnapshot((modelChanges) => {
+    var unsuscribe = db.collection('models').doc(modelName).onSnapshot((modelChanges) => {
         model = modelChanges.data();
         loader.parse(model,
             function (mod) {
@@ -47,5 +48,18 @@ function loadModel() {
             }
         ); 
     });
+    loadedModel.unsuscribe = unsuscribe;
+    loadedModels.push(loadedModel);
 }
 
+
+
+function unloadModel(modelName){
+    loadedModels.forEach(function(modelScene){
+        if (modelScene.name =modelName ){
+            scene.remove(modelScene.scene);
+            modelScene.unsuscribe();
+            console.log("Removing model " + modelName);
+        }
+    })
+}
