@@ -34,6 +34,8 @@ function loadModel(modelName) {
             );
         } else {
             console.log("No such document!");
+            modelName = prompt("Error with model name, please try again", "test1");
+            loadModel(modelName);
         }
     }).catch(function(error) {
         console.log("Error getting document:", error);
