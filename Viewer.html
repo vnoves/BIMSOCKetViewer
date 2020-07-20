@@ -7,8 +7,9 @@
     <title>BIMSocket</title>
     <style>
         #body {
-            height: 99vh;
             margin: 0;
+            background-color: #ecf0f3;
+            height: 98vh;
         }
 
         object {
@@ -18,20 +19,25 @@
 
         h1 {
             text-align: center;
-            margin-top: 10rem;
+            font-weight: 700;
+            color: #f6f5f7;
+            font-family: Muli,sans-serif;
         }
 
         .example {
             padding: 10px;
-            border: 1px solid #ccc;
         }
 
         #drag-drop {
             margin-top: 3rem;
+            margin-bottom: 30px;
+            border-radius: 25px;
+            box-shadow: inset 8px 8px 8px #cbced1,
+                        inset -8px -8px 8px #ffffff;
         }
 
         #drop_zone {
-            border: 2px dashed #bbb;
+            /* border: 2px dashed #bbb; */
             -moz-border-radius: 5px;
             -webkit-border-radius: 5px;
             border-radius: 5px;
@@ -39,38 +45,133 @@
             text-align: center;
             font: 20pt bold 'Vollkorn';
             color: #bbb;
+            border-radius: 27px;
+
         }
 
         .container {
-            width: 40rem;
+            margin-top: 10rem;
+            padding: 2rem;
+            width: 70%;
+            max-width: 40rem;
+            margin-left: auto;
+            margin-right: auto;
+
+            border-radius: 27px;
+            background: #5a5a5a;
+            box-shadow: 20px 20px 60px #474747, -20px -20px 60px #6b6b6b;
+        }
+
+        .container-drop-file {
+            width: 80%;
             margin-left: auto;
             margin-right: auto;
         }
+
+
+
+        .login-div {
+            margin-right: auto;
+            margin-left: auto;
+            width: 75%;
+            max-width: 35rem;
+            margin-top: 7rem;
+            padding: 2rem 5rem;
+            border-radius: 40px;
+            background: #ecf0f3;
+            box-shadow: 13px 13px 20px #cbced1,
+                        -13px -13px 20px #ffffff;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 28px;
+            padding-top: 24px;
+            letter-spacing: 0.5px;
+        }
+        .sub-title {
+            text-align: center;
+            font-size: 15px;
+            padding-top: 7px;
+            letter-spacing: 3px;
+        }
+
+        .fields {
+            width: 100%;
+        }
+        .username, .password {
+            margin-bottom: 30px;
+            border-radius: 25px;
+            box-shadow: inset 8px 8px 8px #cbced1,
+                        inset -8px -8px 8px #ffffff;
+        }
+
+        .fields svg {
+            height: 22px;
+            margin:0 10px -3px 25px;
+        }
+
+        .signin-button {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            outline: none;
+            border:none;
+            cursor: pointer;
+            width: 100%;
+            height: 4rem;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Lato', sans-serif;
+            color:#fff;
+            text-align: center;
+            background: #24cfaa;
+            box-shadow: 3px 3px 8px #b1b1b1,
+                        -3px -3px 8px #ffffff;
+            transition: 0.5s;
+        }
+        .signin-button:hover {
+            background:#2fdbb6;
+        }
+        .signin-button:active {
+            background:#1da88a;
+        }
+        .link {
+            padding-top: 20px;
+            text-align: center;
+        }
+        .link a {
+            text-decoration: none;
+            color:#aaa;
+            font-size: 15px;
+        }
+
+        input #file-upload-button {
+            padding: 2rem;
+        }
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body id="body">
-    <h1>BIMSocket</h1>
 
-    <div class="container">
-        <div id="drag-drop" class="example">
-            <div id="drop_zone">Drop file here</div>
-            <output id="file_list2"></output>
+    <div class="login-div">
+        <div class="title">BIMSocket</div>
+        <div class="sub-title">BETA</div>
+        <div class="fields">
+            <div id="drag-drop" class="example">
+                <div id="drop_zone">Drop file here</div>
+                <output id="file_list2"></output>
+            </div>
+            
+            <output id="list" style="text-align: center;"></output>
         </div>
-                            
-        <output id="list"></output>
-            <br>
-            <br>
-            <br>
-
-        <div class="intro-text">
-            <input class="" type="file" id="file-input" accept="image/*" capture="" name="files[]" multiple="">
-        </div>
+        <button class="signin-button">View</button>
     </div>
-    
 </body>
 
 <script>
+    var result = null;
     // Determinates what page render
     function load_home() {
         firebaseConfigJSON = localStorage.getItem('firebaseConfig');
@@ -85,7 +186,7 @@
         event.stopPropagation();    
         event.preventDefault(); 
     });
-    $( '#example' ).bind( 'drop',function(event) {
+    $('#example' ).bind( 'drop',function(event) {
      event.stopPropagation();   
       event.preventDefault();
     })
@@ -99,8 +200,7 @@
 
         var reader = new FileReader();
             reader.onloadend = function(e) {
-            var result = JSON.parse(this.result);
-            localStorage.setItem('firebaseConfig', this.result);
+            result = this.result;
         };
         reader.readAsText(files[0]);
 
@@ -113,9 +213,16 @@
                     '</li>');
         }
         document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-
-        document.getElementById("body").innerHTML='<object type="text/html" data="ViewerBIMSocket.html" ></object>';
     }
+
+    $(".signin-button").click( function(){
+        if (result) {
+            localStorage.setItem('firebaseConfig', result);
+            document.getElementById("body").innerHTML='<object type="text/html" data="ViewerBIMSocket.html" ></object>';
+        } else {
+            document.getElementById('list').innerHTML = '<p style="color: #ff4545;">Upload JSON file to view the model.</p>';
+        }
+    });
 
     function handleDragOver(evt) {
         evt.stopPropagation();
