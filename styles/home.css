@@ -1,0 +1,181 @@
+#body {
+    margin: 0;
+    background-color: #ecf0f3;
+    height: 98vh;
+}
+
+object {
+    height: 100%;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 700;
+    color: #f6f5f7;
+    font-family: Muli,sans-serif;
+}
+
+.example {
+    padding: 10px;
+}
+
+#drag-drop {
+    margin-top: 3rem;
+    margin-bottom: 30px;
+    border-radius: 25px;
+    box-shadow: inset 8px 8px 8px #cbced1,
+                inset -8px -8px 8px #ffffff;
+}
+
+#drop_zone {
+    /* border: 2px dashed #bbb; */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+    font: 20pt bold 'Vollkorn';
+    color: #bbb;
+    border-radius: 27px;
+
+}
+
+.container {
+    margin-top: 10rem;
+    padding: 2rem;
+    width: 70%;
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 27px;
+    background: #5a5a5a;
+    box-shadow: 20px 20px 60px #474747, -20px -20px 60px #6b6b6b;
+}
+
+.container-drop-file {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.login-div {
+    margin-right: auto;
+    margin-left: auto;
+    width: 75%;
+    max-width: 35rem;
+    margin-top: 7rem;
+    padding: 2rem 5rem;
+    border-radius: 40px;
+    background: #ecf0f3;
+    box-shadow: 13px 13px 20px #cbced1,
+                -13px -13px 20px #ffffff;
+}
+
+.title {
+    text-align: center;
+    font-size: 28px;
+    padding-top: 24px;
+    letter-spacing: 0.5px;
+}
+.sub-title {
+    text-align: center;
+    font-size: 15px;
+    padding-top: 7px;
+    letter-spacing: 3px;
+}
+
+.fields {
+    width: 100%;
+}
+.username, .password {
+    margin-bottom: 30px;
+    border-radius: 25px;
+    box-shadow: inset 8px 8px 8px #cbced1,
+                inset -8px -8px 8px #ffffff;
+}
+
+.fields svg {
+    height: 22px;
+    margin:0 10px -3px 25px;
+}
+
+.signin-button {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    outline: none;
+    border:none;
+    cursor: pointer;
+    width: 100%;
+    height: 4rem;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    color:#fff;
+    text-align: center;
+    background: #24cfaa;
+    box-shadow: 3px 3px 8px #b1b1b1,
+                -3px -3px 8px #ffffff;
+    transition: 0.5s;
+}
+.signin-button:hover {
+    background:#2fdbb6;
+}
+.signin-button:active {
+    background:#1da88a;
+}
+.link {
+    padding-top: 20px;
+    text-align: center;
+}
+.link a {
+    text-decoration: none;
+    color:#aaa;
+    font-size: 15px;
+}
+
+input #file-upload-button {
+    padding: 2rem;
+}
+
+.close-model-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+}
+
+.select-model {
+    background-image:
+        linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+        linear-gradient(to right, #ccc, #ccc);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
+}
+
+select {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 26px;
+    background: linear-gradient(145deg, #ffffff, #e3e4e4);
+    box-shadow:  12px 12px 8px #e0e1e1, 
+             -12px -12px 8px #ffffff;
+    border: 0;
+    background-position-x: 0rem;
+    height: 3rem;
+    width: 100%;
+}
