@@ -31,9 +31,7 @@
             
         }
         else{
-            if (objectSel.material) {
-                objectSel.material = oringinMaterial;
-            }
+            objectSel.material = oringinMaterial;
             var localModel = modelObj.toJSON();
             localModel.materials = model.materials;
             db.collection('models').doc(modelName).update(localModel);

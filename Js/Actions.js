@@ -25,13 +25,13 @@
             const rgbColor = hexToRgb(hexColor.replace('#', ''));
             const intColor = swiftCol(rgbColor);
             var materialIndex = null;
+            model = modelObj.toJSON();
             model.materials.find((material, index) => {
                 if (material.uuid == oringinMaterial.uuid) {
                     materialIndex = index;
                     return index;
                 }
             });
-            console.log(intColor);
             model.materials[materialIndex].color = intColor;
             
             oringinMaterial.color = {r:rgbs[0], g:rgbs[1], b:rgbs[2]};
