@@ -3,7 +3,7 @@
         // Search and delete specific object on parent object and save into firebase
         var indexObj = null;
         modelObj.children.find((child, index) => {
-            if (child.uuid == object.uuid) {
+            if (object.uuid.includes(child.uuid)) {
                 indexObj = index;
                 return index;
             }
