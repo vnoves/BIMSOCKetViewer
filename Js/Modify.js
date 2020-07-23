@@ -77,7 +77,7 @@
         }
     };
 
-   function DesactivateToggleMove(){
+   async function DesactivateToggleMove(){
     control.removeEventListener( 'dragging-changed', function ( event ) {
             controls.enabled = ! event.value;} );
         control.detach( objectSel.parent );

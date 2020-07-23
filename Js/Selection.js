@@ -35,6 +35,7 @@
             var localModel = modelObj.toJSON();
             localModel.materials = model.materials;
             db.collection('models').doc(modelName).update(localModel);
+            
             DesactivateToggleMove();
         }
     }
