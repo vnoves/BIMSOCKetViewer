@@ -12,6 +12,7 @@
             modelObj.children.splice(indexObj, 1);
         }
         model = modelObj.toJSON();
+        console.log("sending after remove");
         db.collection('models').doc(modelName).update(model);
 
         var selectedObject = scene.getObjectByName(object.name);
