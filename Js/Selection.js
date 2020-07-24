@@ -43,7 +43,7 @@
 
                 });
             
- 
+            localModel.materials = model.materials;
             var localmodelName = localModel.object.name.replace("BIM ", "");
             console.log("sending after move");
             db.collection('models').doc(localmodelName).update(localModel);
