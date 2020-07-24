@@ -38,12 +38,13 @@
             var localModel = null;
             scene.children.forEach(element => {
                 if (element.name == objectSel.parent.parent.name){
+                    
                     localModel =element.toJSON();
                 }
 
                 });
             
- 
+                localModel.materials = model.materials;
             var localmodelName = localModel.object.name.replace("BIM ", "");
             console.log("sending after move");
             db.collection('models').doc(localmodelName).update(localModel);
