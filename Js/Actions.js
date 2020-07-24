@@ -12,6 +12,7 @@
             modelObj.children.splice(indexObj, 1);
         }
         model = modelObj.toJSON();
+        console.log("sending after remove");
         db.collection('models').doc(modelName).update(model);
 
         var selectedObject = scene.getObjectByName(object.name);
@@ -20,6 +21,9 @@
 
     //Change Material Color
     function ChangeColor(object, hexColor) {
+        if (hexColor== undefined){
+            return;
+        }
         var rgbs = HEX2RGB(hexColor);
         if(oringinMaterial != undefined) {
             const rgbColor = hexToRgb(hexColor.replace('#', ''));
@@ -28,12 +32,9 @@
             model = modelObj.toJSON();
             model.materials.find((material, index) => {
                 if (material.uuid == oringinMaterial.uuid) {
-                    materialIndex = index;
-                    return index;
+                    material.color = intColor;
                 }
             });
-            model.materials[materialIndex].color = intColor;
-            
             oringinMaterial.color = {r:rgbs[0], g:rgbs[1], b:rgbs[2]};
         }
 

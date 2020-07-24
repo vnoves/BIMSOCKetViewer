@@ -1,17 +1,20 @@
 //Load customized Json file
 var loadedModels = [];
-var lastMod = null;
 function loadModel(modelName) {
     var loader = new THREE.ObjectLoader();
     var loadedModel = {name : modelName};
+    var oldModel = undefined;
     // Get model from firebase for the first time
     db.collection('models').doc(modelName).get().then(function(doc) {
         if (doc.exists) {
             model = doc.data();
+            
             loader.parse(model,
                 function (mod) {
-                    lastMod = mod;
+                    // console.log(mod);
                     modelObj = mod;
+                    console.log(modelObj);
+                    loadedModel.model = modelObj;
                     mod.castShadow = true;
         
                     //Adjust the camera location to the max bouding from object
@@ -29,28 +32,34 @@ function loadModel(modelName) {
                     camera.updateProjectionMatrix();
                     
                     scene.add(mod);  
+                    oldModel = mod;
                     loadedModel.scene = mod;       
                 }
             );
         } else {
             console.log("No such document!");
-            modelName = prompt("Error with model name, please try again", "test1");
-            loadModel(modelName);
         }
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-
+ 
     // Subscribe on update changes for model on firebase
+    
     var unsuscribe = db.collection('models').doc(modelName).onSnapshot((modelChanges) => {
         model = modelChanges.data();
         loader.parse(model,
             function (mod) {
-                scene.remove(lastMod);
-                mod.castShadow = true;
-                scene.add(mod);  
-                lastMod = mod;
-                loadedModel.scene = mod;
+                scene.children.forEach(element => {
+                    if (element.name == mod.name){
+                        scene.remove(element);
+                        console.log("updating model " + modelName);
+                        mod.castShadow = true;
+                        scene.add(mod);  
+                        lastMod = mod;
+                    }
+ 
+                    });
+                    
             }
         ); 
     });
@@ -59,13 +68,19 @@ function loadModel(modelName) {
 }
 
 
-
-function unloadModel(modelName){
+ 
+function unloadModel(_modelName){
     loadedModels.forEach(function(modelScene){
-        if (modelScene.name =modelName ){
-            scene.remove(modelScene.scene);
+        if (modelScene.name =_modelName ){
+            scene.children.forEach(element => {
+                if (element.name.includes(_modelName) ){ //Hard coded possible error in the future
+                    scene.remove(element);
+ 
+                }
+ 
+                });
             modelScene.unsuscribe();
-            console.log("Removing model " + modelName);
+            console.log("Removing model " + _modelName);
         }
     })
 }

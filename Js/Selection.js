@@ -31,10 +31,23 @@
             
         }
         else{
+            if (objectSel == null || objectSel.parent == null){
+                return;
+            }
             objectSel.material = oringinMaterial;
-            var localModel = modelObj.toJSON();
+            var localModel = null;
+            scene.children.forEach(element => {
+                if (element.name == objectSel.parent.parent.name){
+                    
+                    localModel =element.toJSON();
+                }
+
+                });
+            
             localModel.materials = model.materials;
-            db.collection('models').doc(modelName).update(localModel);
+            var localmodelName = localModel.object.name.replace("BIM ", "");
+            console.log("sending after move");
+            db.collection('models').doc(localmodelName).update(localModel);
             
             DesactivateToggleMove();
         }

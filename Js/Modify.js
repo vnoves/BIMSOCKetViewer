@@ -78,19 +78,11 @@
     };
 
     function DesactivateToggleMove(){
-        var indexObj = null;
-
-        modelObj.children.forEach((child, index) => {
-            if (objectSel.parent.uuid.includes(child.uuid)) {
-                indexObj = index;
-            }
-        });
-        modelObj.children[indexObj].matrix = objectSel.parent.matrix;
-
         control.removeEventListener( 'dragging-changed', function ( event ) {
             controls.enabled = ! event.value;} );
         control.detach( objectSel.parent );
         scene.remove( control );
         document.removeEventListener( 'keydown', function ( event ) {});
         controlTransform = false;
+        objectSel = null;
 }
